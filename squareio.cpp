@@ -15,18 +15,24 @@ static void printNumberSeparate(double n, const char *str);
 
 /// Scan coeffs for square
 /// @param [out] square Contains a-, b- and c-coeffs
-void scanSquare(Square *square)
+/// @return 1 if square was scan or 0 if square wasn`t scan
+int scanSquare(Square *square)
 {
     newAssert(square != nullptr);
 
-    printf("# Input a-coeff: ");
-    square->a = scanDouble();
+    printf("# Input a-coeff (input EOF to quit): ");
+    if    (isnan(square->a = scanDouble()))
+        return 0;
 
-    printf("# Input b-coeff: ");
-    square->b = scanDouble();
+    printf("# Input b-coeff (input EOF to quit): ");
+    if    (isnan(square->b = scanDouble()))
+        return 0;
 
-    printf("# Input c-coeff: ");
-    square->c = scanDouble();
+    printf("# Input c-coeff (input EOF to quit): ");
+    if    (isnan(square->c = scanDouble()))
+        return 0;
+
+    return 1;
 }
 
 /// Show square roots
@@ -99,19 +105,26 @@ void showExpression(const Square *square)
 }
 
 /// Read one double
-/// @return One double value from input
+/// @details Read while input is incorrect or read EOF
+///
+/// @return One double value from input or NAN if read EOF
 /// @note If incorrect input scan again
 static double scanDouble()
 {
     double n = 0;
 
-    while (scanf("%lg", &n) != 1)
+    int res = 0;
+
+    while ((res = scanf("%lg", &n)) != 1 && res != EOF)
     {
         printf("Incorrect input!! Try again: ");
 
         while (getchar() != '\n')
             continue;
     }
+
+    if (res == EOF)
+        return NAN;
 
     while (getchar() != '\n')
         continue;

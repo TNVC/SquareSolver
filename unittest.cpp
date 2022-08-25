@@ -57,6 +57,9 @@ void test_solveSquare()
     {
         square = TESTS[i];
 
+        square.nRoots = 0;
+        square.x1 = square.x2 = NAN;
+
         solveSquare(&square);
 
         if (test(  square.nRoots,   square.x1,   square.x2,

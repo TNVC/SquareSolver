@@ -4,7 +4,6 @@
 #include "solver.h"
 #include "unittest.h"
 
-#define DEBUG_MODE_
 int main()
 {
     #ifdef DEBUG_MODE_
@@ -17,11 +16,14 @@ int main()
 
     Square square = {};
 
-    scanSquare(&square);
+    if (scanSquare(&square))
+    {
+        solveSquare(&square);
 
-    solveSquare(&square);
+        printSquare(&square);
+    }
 
-    printSquare(&square);
+    puts("# Goodbye");
 
     #endif
 
