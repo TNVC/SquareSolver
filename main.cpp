@@ -4,25 +4,16 @@
 #include "solver.h"
 #include "unittest.h"
 
+#define DEBUG_MODE
 int main()
 {
+    #ifdef DEBUG_MODE
+
     test_solveSquare();
 
-    return 0;
+    #endif
 
-
-    //Square square = {};
-
-    //for (square.a = -2; square.a <= 2; ++square.a)
-    //    for (square.b = -2; square.b <= 2; ++square.b)
-    //        for (square.c = -2; square.c <= 2; ++square.c)
-    //        {
-    //            showExpression(&square);
-    //            putchar('\n');
-    //        }
-
-    //return 0;
-
+    #ifndef DEBUG_MODE
 
     printf("# Square Solver\n");
 
@@ -33,6 +24,8 @@ int main()
     solveSquare(&square);
 
     printSquare(&square);
+
+    #endif
 
     return 0;
 }

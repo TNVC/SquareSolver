@@ -150,10 +150,10 @@ static void printNumberSeparate(double n, const char *str)
     newAssert(str != nullptr);
 
     if (strlen(str) == 0)
-        printf("%c %lg ", n > 0 ? '+' : '-', fabs(n));
+        printf("%c %lg "  , n > 0 ? '+' : '-', fabs(n));
     else if (isequals(n,  1) ||
              isequals(n, -1))
-        printf("%c %s ", n > 0 ? '+' : '-', str);
+        printf("%c %s "   , n > 0 ? '+' : '-', str);
     else
         printf("%c %lg%s ", n > 0 ? '+' : '-', fabs(n), str);
 }

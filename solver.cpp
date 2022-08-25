@@ -120,8 +120,10 @@ static void solveFullSquare(Square *square)
     }
     else
     {
-        double temp1 = (-square->b + sqrt(D)) / (2*square->a),
-               temp2 = (-square->b - sqrt(D)) / (2*square->a);
+        double sqrtD = sqrt(D);
+
+        double temp1 = (-square->b + sqrtD) / (2*square->a),
+               temp2 = (-square->b - sqrtD) / (2*square->a);
 
         square->x1 = fmin(temp1, temp2);
         square->x2 = fmax(temp1, temp2);

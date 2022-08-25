@@ -9,9 +9,9 @@ typedef struct {
     double   a;///< a-coeff
     double   b;///< b-coeff
     double   c;///< c-coeff
+    int nRoots;///< Count of roots
     double  x1;///< First root
     double  x2;///< Second root
-    int nRoots;///< Count of roots
 } Square;
 
 #endif

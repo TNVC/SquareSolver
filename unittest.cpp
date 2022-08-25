@@ -6,9 +6,40 @@
 #include "unittest.h"
 #include "newassert.h"
 
-static void init(int a, int b, int c, Square *square);
+
 static int  test(int   realRoots, double   realX1, double   realX2,
                  int expectRoots, double expectX1, double expectX2);
+
+/// Array of Square for "test_solveSquare()"
+static const Square TESTS[] = {
+    {0,  0,  0, INF_ROOTS,    0,    0},
+    {1,  0,  0,         2,    0,    0},
+    {0,  1,  0,         1,    0,    0},
+    {0,  0,  1,         0,    0,    0},
+    {0,  1,  1,         1,   -1,   -1},
+    {1,  0,  1,         0,    0,    0},
+    {1,  0, -1,         2,   -1,    1},
+    {1,  1,  0,         2,   -1,    0},
+    {1,  2,  1,         2,   -1,   -1},
+    {1,  4,  4,         2,   -2,   -2},
+    {1,  6,  9,         2,   -3,   -3},
+    {1, -2,  1,         2,    1,    1},
+    {1, -4,  4,         2,    2,    2},
+    {1, -6,  9,         2,    3,    3},
+    {0,  2,  1,         1, -0.5, -0.5},
+    {0, -1,  5,         1,    5,    5},
+    {0,  4, -9,         1, 2.25, 2.25},
+    {4,  0, -1,         2, -0.5,  0.5},
+    {9,  0, -9,         2,   -1,    1},
+    {2,  0,  1,         0,    0,    0},
+    {1,  2,  2,         0,    0,    0},
+    {1, -1, -6,         2,   -2,    3},
+    {1, -8, 15,         2,    3,    5},
+    {1,  9, 14,         2,   -7, -  2}
+};
+
+/// Count of tests in "test_solveSquare()"
+const int N_TESTS = sizeof(TESTS) / sizeof(TESTS[0]);
 
 
 /// Testing function "solveSquare()"
@@ -18,219 +49,24 @@ static int  test(int   realRoots, double   realX1, double   realX2,
 /// @note Has 24 tests
 void test_solveSquare()
 {
-    int succesful = 0, failed = 0;
+    int succesful = 0;
 
     Square square = {};
 
-    init(0, 0, 0, &square);
-    solveSquare(&square);
+    for (int i = 0; i < N_TESTS; ++i)
+    {
+        square = TESTS[i];
 
-    if (test(square.nRoots, square.x1, square.x2, INF_ROOTS, 0, 0))
-        ++succesful;
-    else
-        ++failed;
+        solveSquare(&square);
 
-    init(1, 0, 0, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, 0, 0))
-        ++succesful;
-    else
-        ++failed;
-
-    init(0, 1, 0, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 1, 0, 0))
-        ++succesful;
-    else
-        ++failed;
-
-    init(0, 0, 1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 0, 0, 0))
-        ++succesful;
-    else
-        ++failed;
-
-    init(0, 1, 1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 1, -1, -1))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 0, 1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 0, 0, 0))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 0, -1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -1, 1))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 1, 0, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -1, 0))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 2, 1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -1, -1))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 4, 4, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -2, -2))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 6, 9, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -3, -3))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, -2, 1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, 1, 1))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, -4, 4, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, 2, 2))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, -6, 9, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, 3, 3))
-        ++succesful;
-    else
-        ++failed;
-
-    init(0, 2, 1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 1, -0.5, -0.5))
-        ++succesful;
-    else
-        ++failed;
-
-    init(0, -1, 5, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 1, 5, 5))
-        ++succesful;
-    else
-        ++failed;
-
-    init(0, 4, -9, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 1, 2.25, 2.25))
-        ++succesful;
-    else
-        ++failed;
-
-    init(4, 0, -1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -0.5, 0.5))
-        ++succesful;
-    else
-        ++failed;
-
-    init(9, 0, -9, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -1, 1))
-        ++succesful;
-    else
-        ++failed;
-
-    init(2, 0, 1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 0, 0, 0))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 2, 2, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 0, 0, 0))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, -1, -6, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -2, 3))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, -8, 15, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, 3, 5))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 9, 14, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -7, -2))
-        ++succesful;
-    else
-        ++failed;
+        if (test(  square.nRoots,   square.x1,   square.x2,
+                 TESTS[i].nRoots, TESTS[i].x1, TESTS[i].x2))
+            ++succesful;
+    }
 
     printf("---------------------------------------------------\n");
-    printf("# Total succesful: %2d\n# Total failed   : %2d\n", succesful, failed);
+    printf("# Total succesful: %2d\n# Total failed   : %2d\n", succesful, N_TESTS - succesful);
     printf("---------------------------------------------------\n");
-}
-
-/// Init square for test
-/// @param [in] a a-coeff
-/// @param [in] b b-coeff
-/// @param [in] c c-coeff
-/// @param [out] square Target square for test
-static void init(int a, int b, int c, Square *square)
-{
-    newAssert(square != nullptr);
-
-    square->a = a;
-    square->b = b;
-    square->c = c;
 }
 
 /// Test one square

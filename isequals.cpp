@@ -7,6 +7,8 @@
 static const double ZERO_VAL = 0.00001;
 
 /// Equals two double values
+/// @details Catch NaN, +INF or -INF and abort() program
+///
 /// @param [in] n1 First val to equals
 /// @param [in] n2 Second val to equals
 /// @return 1 if n1 == n2 or 0 if n1 != n2
@@ -14,7 +16,7 @@ static const double ZERO_VAL = 0.00001;
 int isequals(double n1, double n2)
 {
     newAssert(std::isfinite(n1));
-    newAssert(std::isfinite(n1));
+    newAssert(std::isfinite(n2));
 
     return fabs(n1 - n2) < ZERO_VAL;
 }
