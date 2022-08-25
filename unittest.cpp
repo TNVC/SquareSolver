@@ -15,7 +15,7 @@ static int  test(int   realRoots, double   realX1, double   realX2,
 /// @details If test is failed show it\n
 ///          In end show count succesful and failed tests
 ///
-/// @note Has 8 tests
+/// @note Has 24 tests
 void test_solveSquare()
 {
     int succesful = 0, failed = 0;
