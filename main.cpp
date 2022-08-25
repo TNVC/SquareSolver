@@ -1,14 +1,39 @@
 #include <stdio.h>
+#include <string.h>
 #include "square.h"
 #include "squareio.h"
 #include "solver.h"
 #include "unittest.h"
 
-int main()
+int main(int argc, const char *argv[])
 {
     #ifdef DEBUG_MODE_
 
-    test_solveSquare();
+    FILE *fileptr = nullptr;
+
+    if (argc == 2 || argc > 3)
+    {
+        printf("Incorrect use!!\n");
+        printf("%s -f [file name]\n", argv[0]);
+    }
+
+    if (argc >= 3)
+    {
+        if (strncmp(argv[1], "-f", 2) == 0)
+        {
+            fileptr = fopen(argv[2], "rb");
+
+            if (fileptr == nullptr)
+                printf("Fail to open \"%s\"!!\n", argv[2]);
+        }
+        else
+        {
+            printf("Incorrect use!!\n");
+            printf("%s -f [file name]\n", argv[0]);
+        }
+    }
+
+    test_solveSquare(fileptr);
 
     #else
 

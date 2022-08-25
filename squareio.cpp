@@ -105,10 +105,9 @@ void showExpression(const Square *square)
 }
 
 /// Read one double
-/// @details Read while input is incorrect or read EOF
+/// @details Scan while input is incorrect or read EOF
 ///
 /// @return One double value from input or NAN if read EOF
-/// @note If incorrect input scan again
 static double scanDouble()
 {
     double n = 0;

@@ -7,8 +7,9 @@
 #include "newassert.h"
 
 
-static int  test(int   realRoots, double   realX1, double   realX2,
-                 int expectRoots, double expectX1, double expectX2);
+static Square nextTest(FILE *fileptr, int *next);
+static int test(int   realRoots, double   realX1, double   realX2,
+                int expectRoots, double expectX1, double expectX2);
 
 /// Array of Square for "test_solveSquare()"
 static const Square TESTS[] = {
@@ -46,24 +47,29 @@ const int N_TESTS = sizeof(TESTS) / sizeof(TESTS[0]);
 /// @details If test is failed show it\n
 ///          In end show count succesful and failed tests
 ///
+/// @param [in] fileptr FILE* with tests
 /// @note Has 24 tests
-void test_solveSquare()
+/// @note If fileptr == nullptr then function use its tests
+void test_solveSquare(FILE *fileptr)
 {
+    int contin = 0;
+
     int succesful = 0;
 
-    Square square = {};
+    Square square       = {},
+           testSquare   = {};
 
-    for (int i = 0; i < N_TESTS; ++i)
+    for (testSquare = nextTest(fileptr, &contin); contin; testSquare = nextTest(fileptr, &contin))
     {
-        square = TESTS[i];
+        square = testSquare;
 
         square.nRoots = 0;
         square.x1 = square.x2 = NAN;
 
         solveSquare(&square);
 
-        if (test(  square.nRoots,   square.x1,   square.x2,
-                 TESTS[i].nRoots, TESTS[i].x1, TESTS[i].x2))
+        if (test(square.nRoots,     square.x1,     square.x2,
+             testSquare.nRoots, testSquare.x1, testSquare.x2))
             ++succesful;
     }
 
@@ -107,4 +113,43 @@ static int test(int   realRoots, double   realX1, double   realX2,
     }
 
     return 1;
+}
+
+/// Get next test struct
+/// @param [in] fileptr FILE* with tests
+/// @param [out] next Marker then need continue
+/// @return Struct for test
+/// @note If fileptr == nullptr return its test
+static Square nextTest(FILE *fileptr, int *next)
+{
+    Square square = {};
+
+    static int lastTest = 0;
+
+    if (fileptr == nullptr && lastTest == N_TESTS)
+    {
+        *next = 0;
+
+        return square;
+    }
+
+    if (fileptr == nullptr)
+    {
+        *next = 1;
+
+        return TESTS[lastTest++];
+    }
+
+    if (fread(&square, sizeof(Square), 1, fileptr) == 1)
+    {
+        *next = 1;
+
+        return square;
+    }
+    else
+    {
+        *next = 0;
+
+        return square;
+    }
 }
