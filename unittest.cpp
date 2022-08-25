@@ -22,18 +22,10 @@ void test_solveSquare()
 
     Square square = {};
 
-    init(1, 0, -4, &square);
+    init(0, 0, 0, &square);
     solveSquare(&square);
 
-    if (test(square.nRoots, square.x1, square.x2, 2, -2, 2))
-        ++succesful;
-    else
-        ++failed;
-
-    init(1, 2, 1, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 2, -1, -1))
+    if (test(square.nRoots, square.x1, square.x2, INF_ROOTS, 0, 0))
         ++succesful;
     else
         ++failed;
@@ -46,26 +38,10 @@ void test_solveSquare()
     else
         ++failed;
 
-    init(0, 2, 3, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, 1, -1.5, -1.5))
-        ++succesful;
-    else
-        ++failed;
-
     init(0, 1, 0, &square);
     solveSquare(&square);
 
     if (test(square.nRoots, square.x1, square.x2, 1, 0, 0))
-        ++succesful;
-    else
-        ++failed;
-
-    init(0, 0, 0, &square);
-    solveSquare(&square);
-
-    if (test(square.nRoots, square.x1, square.x2, INF_ROOTS, 0, 0))
         ++succesful;
     else
         ++failed;
@@ -78,10 +54,162 @@ void test_solveSquare()
     else
         ++failed;
 
+    init(0, 1, 1, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 1, -1, -1))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, 0, 1, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 0, 0, 0))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, 0, -1, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -1, 1))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, 1, 0, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -1, 0))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, 2, 1, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -1, -1))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, 4, 4, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -2, -2))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, 6, 9, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -3, -3))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, -2, 1, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, 1, 1))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, -4, 4, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, 2, 2))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, -6, 9, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, 3, 3))
+        ++succesful;
+    else
+        ++failed;
+
+    init(0, 2, 1, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 1, -0.5, -0.5))
+        ++succesful;
+    else
+        ++failed;
+
+    init(0, -1, 5, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 1, 5, 5))
+        ++succesful;
+    else
+        ++failed;
+
+    init(0, 4, -9, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 1, 2.25, 2.25))
+        ++succesful;
+    else
+        ++failed;
+
+    init(4, 0, -1, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -0.5, 0.5))
+        ++succesful;
+    else
+        ++failed;
+
+    init(9, 0, -9, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -1, 1))
+        ++succesful;
+    else
+        ++failed;
+
+    init(2, 0, 1, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 0, 0, 0))
+        ++succesful;
+    else
+        ++failed;
+
     init(1, 2, 2, &square);
     solveSquare(&square);
 
     if (test(square.nRoots, square.x1, square.x2, 0, 0, 0))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, -1, -6, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -2, 3))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, -8, 15, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, 3, 5))
+        ++succesful;
+    else
+        ++failed;
+
+    init(1, 9, 14, &square);
+    solveSquare(&square);
+
+    if (test(square.nRoots, square.x1, square.x2, 2, -7, -2))
         ++succesful;
     else
         ++failed;

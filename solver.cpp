@@ -65,8 +65,8 @@ static void solveWhereBIsZero(Square *square)
 
     if (square->c < 0)
     {
-        square->x1 = -sqrt(-square->c);
-        square->x2 =  sqrt(-square->c);
+        square->x1 = -sqrt(-square->c / square->a);
+        square->x2 =  sqrt(-square->c / square->a);
 
         square->nRoots = 2;
     }

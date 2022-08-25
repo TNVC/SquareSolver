@@ -6,9 +6,9 @@
 
 int main()
 {
-    //test_solveSquare();
+    test_solveSquare();
 
-    //return 0;
+    return 0;
 
 
     //Square square = {};
