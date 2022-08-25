@@ -4,16 +4,14 @@
 #include "solver.h"
 #include "unittest.h"
 
-#define DEBUG_MODE
+#define DEBUG_MODE_
 int main()
 {
-    #ifdef DEBUG_MODE
+    #ifdef DEBUG_MODE_
 
     test_solveSquare();
 
-    #endif
-
-    #ifndef DEBUG_MODE
+    #else
 
     printf("# Square Solver\n");
 
