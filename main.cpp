@@ -19,9 +19,9 @@ int main(int argc, const char *argv[])
 
     if (argc >= 3)
     {
-        if (strncmp(argv[1], "-f", 2) == 0)
+        if (strncmp(argv[1], "-f", 3) == 0)
         {
-            fileptr = fopen(argv[2], "rb");
+            fileptr = fopen(argv[2], "r");
 
             if (fileptr == nullptr)
                 printf("Fail to open \"%s\"!!\n", argv[2]);

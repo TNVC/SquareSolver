@@ -8,6 +8,7 @@
 
 
 static Square nextTest(FILE *fileptr, int *next);
+static int fscanSquare(Square *square, FILE *fileptr);
 static int test(int   realRoots, double   realX1, double   realX2,
                 int expectRoots, double expectX1, double expectX2);
 
@@ -36,11 +37,11 @@ static const Square TESTS[] = {
     {1,  2,  2,         0,    0,    0},
     {1, -1, -6,         2,   -2,    3},
     {1, -8, 15,         2,    3,    5},
-    {1,  9, 14,         2,   -7, -  2}
+    {1,  9, 14,         2,   -7,   -2}
 };
 
 /// Count of tests in "test_solveSquare()"
-const int N_TESTS = sizeof(TESTS) / sizeof(TESTS[0]);
+static const int N_TESTS = sizeof(TESTS) / sizeof(TESTS[0]);
 
 
 /// Testing function "solveSquare()"
@@ -49,12 +50,13 @@ const int N_TESTS = sizeof(TESTS) / sizeof(TESTS[0]);
 ///
 /// @param [in] fileptr FILE* with tests
 /// @note Has 24 tests
-/// @note If fileptr == nullptr then function use its tests
+/// @note If fileptr == NULL then function use its tests
 void test_solveSquare(FILE *fileptr)
 {
     int contin = 0;
 
     int succesful = 0;
+    int failed    = 0;
 
     Square square       = {},
            testSquare   = {};
@@ -71,10 +73,12 @@ void test_solveSquare(FILE *fileptr)
         if (test(square.nRoots,     square.x1,     square.x2,
              testSquare.nRoots, testSquare.x1, testSquare.x2))
             ++succesful;
+        else
+            ++failed;
     }
 
     printf("---------------------------------------------------\n");
-    printf("# Total succesful: %2d\n# Total failed   : %2d\n", succesful, N_TESTS - succesful);
+    printf("# Total succesful: %2d\n# Total failed   : %2d\n", succesful, failed);
     printf("---------------------------------------------------\n");
 }
 
@@ -119,7 +123,7 @@ static int test(int   realRoots, double   realX1, double   realX2,
 /// @param [in] fileptr FILE* with tests
 /// @param [out] next Marker then need continue
 /// @return Struct for test
-/// @note If fileptr == nullptr return its test
+/// @note If fileptr == NULL return its test
 static Square nextTest(FILE *fileptr, int *next)
 {
     Square square = {};
@@ -140,16 +144,25 @@ static Square nextTest(FILE *fileptr, int *next)
         return TESTS[lastTest++];
     }
 
-    if (fread(&square, sizeof(Square), 1, fileptr) == 1)
-    {
-        *next = 1;
+    *next = fscanSquare(&square, fileptr);
 
-        return square;
-    }
-    else
-    {
-        *next = 0;
+    return square;
+}
 
-        return square;
-    }
+
+/// Scan one Square from file
+/// @param [out] square Square for test
+/// @param [in] fileptr File with tests
+/// @return 1 if Square was read and 0 if Square wasn`t read
+static int fscanSquare(Square *square, FILE *fileptr)
+{
+    newAssert(square  != nullptr);
+    newAssert(fileptr != nullptr);
+
+    if (fscanf(fileptr, "%lg, %lg, %lg, %d, %lg, %lg",
+        &square->a, &square->b, &square->c,
+        &square->nRoots, &square->x1, &square->x2) != 6)
+        return 0;
+
+    return 1;
 }
